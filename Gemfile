@@ -5,9 +5,11 @@ ruby '2.5.1'
 
 
 gem 'bootsnap', '>= 1.1.0', require: false # Reduces boot times through caching; required in config/boot.rb
+gem 'devise'
 gem 'pg' # Postgresql Database
 gem 'puma', '~> 3.11' # Use Puma as the app server
 gem 'rails', '~> 5.2.0'
+gem 'rack-cors', require: 'rack/cors' # Support for cross-origin resource sharing. More at: https://github.com/cyu/rack-cors
 
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
