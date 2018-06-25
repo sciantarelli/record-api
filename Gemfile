@@ -10,6 +10,7 @@ gem 'pg' # Postgresql Database
 gem 'puma', '~> 3.11' # Use Puma as the app server
 gem 'rails', '~> 5.2.0'
 gem 'rack-cors', require: 'rack/cors' # Support for cross-origin resource sharing. More at: https://github.com/cyu/rack-cors
+gem 'simple_token_authentication'
 
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
