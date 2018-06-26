@@ -26,15 +26,18 @@ class V1::NotesController < ApplicationController
 
   def note
     @_note ||= if params[:id]
-                 Note.find(params[:id])
+                 Note.find_by(
+                     id: params[:id],
+                     user_id: current_user.id
+                 )
                else
-                 Note.new(note_params)
+                 current_user.notes.build(note_params)
                end
   end
 
 
   def notes
-    @_notes ||= Note.all
+    @_notes ||= current_user.notes
   end
 
 
