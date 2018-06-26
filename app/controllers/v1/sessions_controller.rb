@@ -1,16 +1,21 @@
 class V1::SessionsController < ApplicationController
 
+  helper_method :user
+
 
   def create
-    # TODO: Refactor this
-    user = User.find_by(email: params[:email])
-
     # TODO: change this to validate as normal once other attributes are added to User
     if user && user.valid_password?(params[:password])
-      render json: user.as_json(only: [:email, :authentication_token]), status: :created
+      # TODO: Can this be done implicitly, then switch this conditional to use unless?
+      render :create, status: :created
     else
       head(:unauthorized)
     end
+  end
+
+
+  def show
+    current_user ? head(:ok) : head(:unauthorized)
   end
 
 
@@ -30,6 +35,14 @@ class V1::SessionsController < ApplicationController
       head(:unauthorized)
     end
 
+  end
+
+
+  private
+
+
+  def user
+    @_user ||= User.find_by(email: params[:email])
   end
 
 
