@@ -6,16 +6,13 @@ ruby '2.4.2'
 
 gem 'bootsnap', '>= 1.1.0', require: false # Reduces boot times through caching; required in config/boot.rb
 gem 'devise'
+gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'pg' # Postgresql Database
 gem 'puma', '~> 3.11' # Use Puma as the app server
 gem 'rails', '~> 5.2.0'
 gem 'rack-cors', require: 'rack/cors' # Support for cross-origin resource sharing. More at: https://github.com/cyu/rack-cors
 gem 'simple_token_authentication'
 
-# Use sqlite3 as the database for Active Record
-# gem 'sqlite3'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-# gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -26,9 +23,6 @@ gem 'simple_token_authentication'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
-# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
 
 group :development, :test do
 
