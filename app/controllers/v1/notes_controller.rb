@@ -1,6 +1,6 @@
 class V1::NotesController < ApplicationController
 
-  helper_method :notes
+  helper_method :note, :notes
 
   # TODO: Decide how to reject unauthorized requests where current user is nil. Possibly an authenticated controller or otherwise.
 
@@ -11,7 +11,7 @@ class V1::NotesController < ApplicationController
 
   def create
     note.save
-    render json: note, status: :created
+    render :create, status: :created
   end
 
 
