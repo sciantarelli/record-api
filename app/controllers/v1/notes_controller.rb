@@ -1,8 +1,11 @@
 class V1::NotesController < ApplicationController
 
+  helper_method :notes
+
+  # TODO: Decide how to reject unauthorized requests where current user is nil. Possibly an authenticated controller or otherwise.
 
   def index
-    render json: notes, status: :ok
+
   end
 
 
