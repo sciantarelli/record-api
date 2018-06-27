@@ -1,8 +1,8 @@
 class V1::NotesController < ApplicationController
+  before_action :authenticate_request!
 
   helper_method :note, :notes
 
-  # TODO: Decide how to reject unauthorized requests where current user is nil. Possibly an authenticated controller or otherwise.
 
   # TODO: Add friendly id using the Note titles
 

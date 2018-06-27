@@ -1,0 +1,4 @@
+class UnauthorizedRequestError < StandardError
+
+
+end
