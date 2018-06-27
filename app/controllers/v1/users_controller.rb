@@ -2,11 +2,11 @@ class V1::UsersController < ApplicationController
 
   helper_method :user
 
-  # TODO: This and other controller(s) methods will need some response handling for error conditions, etc
 
   def create
     unless user.save
-      head(:unprocessable_entity)
+      render json: { errors: user.errors.messages },
+             status: :unprocessable_entity
     end
   end
 

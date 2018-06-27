@@ -4,14 +4,18 @@ class V1::NotesController < ApplicationController
 
   # TODO: Decide how to reject unauthorized requests where current user is nil. Possibly an authenticated controller or otherwise.
 
+  # TODO: Add friendly id using the Note titles
+
   def index
 
   end
 
 
   def create
-    note.save
-    render :create, status: :created
+    unless note.save
+      render json: { errors: note.errors.messages },
+             status: :unprocessable_entity
+    end
   end
 
 

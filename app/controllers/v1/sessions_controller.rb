@@ -5,10 +5,8 @@ class V1::SessionsController < ApplicationController
 
   def create
     # TODO: change this to validate as normal once other attributes are added to User
-    if user && user.valid_password?(params[:password])
-      # TODO: Can this be done implicitly, then switch this conditional to use unless?
-      render :create, status: :created
-    else
+    unless user && user.valid_password?(params[:password])
+      # TODO: consider error handling here at some point
       head(:unauthorized)
     end
   end
