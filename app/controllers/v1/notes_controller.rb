@@ -1,5 +1,6 @@
 class V1::NotesController < ApplicationController
-  before_action :authenticate_request!
+  before_action :authenticate_request!,
+                only: [:create, :destroy] # TODO: Remove this when auth is back in place (so index can pull notes for now without auth)
 
   helper_method :note, :notes
 
@@ -44,7 +45,9 @@ class V1::NotesController < ApplicationController
 
 
   def notes
-    @_notes ||= current_user.notes
+    @_notes ||= Note.all
+    # TODO: Change above method to:
+    # @_notes ||= current_user.notes
   end
 
 
