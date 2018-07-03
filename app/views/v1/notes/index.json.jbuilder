@@ -1,5 +1,3 @@
-json.data do
-  json.array! notes do |note|
-    json.partial! 'note', note: note
-  end
+json.array! notes do |note|
+  json.partial! 'note', note: note
 end
