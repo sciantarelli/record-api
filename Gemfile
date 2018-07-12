@@ -6,12 +6,13 @@ ruby '2.4.2'
 
 gem 'bootsnap', '>= 1.1.0', require: false # Reduces boot times through caching; required in config/boot.rb
 gem 'devise'
+gem 'devise_token_auth'
 gem 'jbuilder', '~> 2.5' # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'omniauth'
 gem 'pg' # Postgresql Database
 gem 'puma', '~> 3.11' # Use Puma as the app server
 gem 'rails', '~> 5.2.0'
 gem 'rack-cors', require: 'rack/cors' # Support for cross-origin resource sharing. More at: https://github.com/cyu/rack-cors
-gem 'simple_token_authentication'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'

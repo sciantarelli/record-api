@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::API
+  include DeviseTokenAuth::Concerns::SetUserByToken
   include ActionController::Helpers
 
-  acts_as_token_authentication_handler_for User, fallback: :none
 
   rescue_from UnauthorizedRequestError,
               with: :unauthorized_action
