@@ -11,8 +11,24 @@ class V1::NotesController < ApplicationController
   end
 
 
+  def show
+    unless note
+      render json: { error: 'Note not found'},
+             status: :not_found
+    end
+  end
+
+
   def create
     unless note.save
+      render json: { errors: note.errors.messages },
+             status: :unprocessable_entity
+    end
+  end
+
+
+  def update
+    unless note && note.update_attributes(note_params)
       render json: { errors: note.errors.messages },
              status: :unprocessable_entity
     end
@@ -44,9 +60,7 @@ class V1::NotesController < ApplicationController
 
 
   def notes
-    @_notes ||= Note.all
-    # TODO: Change above method to:
-    # @_notes ||= current_user.notes
+    @_notes ||= current_user.notes
   end
 
 

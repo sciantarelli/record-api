@@ -1,3 +1,5 @@
-json.array! notes do |note|
-  json.partial! 'note', note: note
-end
+notes.each{ |note| json.set! note.id, {
+  id: note.id,
+  name: note.name,
+  content: note.content
+}}
