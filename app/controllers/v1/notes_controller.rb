@@ -29,7 +29,7 @@ class V1::NotesController < ApplicationController
 
   def update
     unless note && note.update_attributes(note_params)
-      render json: { errors: note.errors.messages },
+      render json: { errors: note.errors.full_messages },
              status: :unprocessable_entity
     end
   end
