@@ -36,10 +36,18 @@ class V1::NotesController < ApplicationController
 
 
   def destroy
-    if note.present? && note.destroy
-      head(:ok)
+
+    if !note.present?
+      errors = ['Delete failed. The note was not found in the database.']
+    elsif !note.destroy
+      errors = ['The note was found but failed to delete. An issue with the server may exist']
+    end
+
+    if errors
+      render json: { errors: errors },
+             status: :unprocessable_entity
     else
-      head(:unprocessable_entity)
+      head(:ok)
     end
   end
 
