@@ -12,6 +12,9 @@ Rails.application.routes.draw do
     resource :sessions, only: [:create, :destroy]
     resources :users, only: [:create]
     resources :notes
-  end
 
+    if Rails.env.test?
+      get '/reseed', to: 'reseed#index'
+    end
+  end
 end
