@@ -1,0 +1,65 @@
+run.config:
+  engine: ruby
+  engine.config:
+    runtime: ruby-2.4.2
+
+  extra_packages:
+    - nginx
+    - nodejs
+
+  extra_steps:
+    - cd client && npm install && cd ..
+
+  cache_dirs:
+    - vendor
+    - client/node_modules
+
+
+web.client:
+  routes:
+    - '/'
+
+  # current working directory
+  cwd:
+    client: client
+
+  start:
+    nginx: nginx -c /app/config/nginx/client.conf
+    client: node server/bootstrap.js
+
+  writable_dirs:
+    - client/config
+
+
+web.api:
+  routes:
+    - '/v1'
+
+  start:
+    nginx: nginx -c /app/config/nginx/api.conf
+    puma: bundle exec puma -C /app/config/puma.rb -p 3001
+
+  writable_dirs:
+    - tmp
+    - log
+    - db
+
+  log_watch:
+    rails: 'log/production.log'
+
+
+data.db:
+  image: nanobox/postgresql:9.5
+
+
+deploy.config:
+  extra_steps:
+    - cd client && npm run build && cd ..
+#  transform:
+#    - 'if [ $APP_NAME == "record-api" ]; then sed -ie "s/#RM //g" /app/config/nginx/client.conf; fi'
+#    - nginx -c /app/config/nginx/client.conf
+#    - 'if [ $APP_NAME == "record-api" ]; then sed -ie "s/#RM //g" /app/config/nginx/api.conf; fi'
+#    - nginx -c /app/config/nginx/api.conf
+  before_live:
+    web.api:
+      - rake db:setup_or_migrate

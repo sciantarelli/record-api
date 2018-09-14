@@ -1,11 +1,9 @@
+# Nanobox settings
 default: &default
   adapter: postgresql
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  encoding: unicode
+  pool: 5
   timeout: 5000
-
-development:
-  <<: *default
-  database: record-api-devel
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -14,6 +12,18 @@ test:
   <<: *default
   database: record-api-test
 
+development:
+  <<: *default
+  host: <%= ENV['DATA_DB_HOST'] %>
+  username: <%= ENV['DATA_DB_USER'] %>
+  password: <%= ENV['DATA_DB_PASS'] %>
+  database: gonano
+  # Remove above entries and uncomment this to use local database outside of nanobox
+  # database: record-api-devel
+
 production:
   <<: *default
-  database: record-api
+  host: <%= ENV['DATA_DB_HOST'] %>
+  username: <%= ENV['DATA_DB_USER'] %>
+  password: <%= ENV['DATA_DB_PASS'] %>
+  database: gonano
