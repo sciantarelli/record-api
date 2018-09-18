@@ -1,22 +1,53 @@
 class V1::NotesController < ApplicationController
+  before_action :authenticate_user!
 
+  helper_method :note, :notes
+
+
+  # TODO: Add friendly id using the Note titles
 
   def index
-    render json: notes, status: :ok
+
+  end
+
+
+  def show
+    unless note
+      render json: { error: 'Note not found'},
+             status: :not_found
+    end
   end
 
 
   def create
-    note.save
-    render json: note, status: :created
+    unless note.save
+      render json: { errors: note.errors.full_messages },
+             status: :unprocessable_entity
+    end
+  end
+
+
+  def update
+    unless note && note.update_attributes(note_params)
+      render json: { errors: note.errors.full_messages },
+             status: :unprocessable_entity
+    end
   end
 
 
   def destroy
-    if note.present? && note.destroy
-      head(:ok)
+
+    if !note.present?
+      errors = ['Delete failed. The note was not found in the database.']
+    elsif !note.destroy
+      errors = ['The note was found but failed to delete. An issue with the server may exist']
+    end
+
+    if errors
+      render json: { errors: errors },
+             status: :unprocessable_entity
     else
-      head(:unprocessable_entity)
+      head(:ok)
     end
   end
 
@@ -26,15 +57,18 @@ class V1::NotesController < ApplicationController
 
   def note
     @_note ||= if params[:id]
-                 Note.find(params[:id])
+                 Note.find_by(
+                     id: params[:id],
+                     user_id: current_user.id
+                 )
                else
-                 Note.new(note_params)
+                 current_user.notes.build(note_params)
                end
   end
 
 
   def notes
-    @_notes ||= Note.all
+    @_notes ||= current_user.notes
   end
 
 
