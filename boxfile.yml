@@ -7,8 +7,9 @@ run.config:
     - nginx
     - nodejs
 
-  extra_steps:
-    - cd client && npm install && cd ..
+# Moved this to deploy.config below, and it seems to work fine
+#  extra_steps:
+#    - cd client && npm install && cd ..
 
   cache_dirs:
     - vendor
@@ -54,6 +55,7 @@ data.db:
 
 deploy.config:
   extra_steps:
+    - cd client && npm install && cd ..
     - cd client && npm run build && cd ..
 #  transform:
 #    - 'if [ $APP_NAME == "record-api" ]; then sed -ie "s/#RM //g" /app/config/nginx/client.conf; fi'
